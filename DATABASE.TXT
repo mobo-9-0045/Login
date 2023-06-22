@@ -1,0 +1,3 @@
+NAME,LASTNAME,USERNAME,EMAIL,PASSWORD
+abdelilah,oman,mobo1,abdelilahoman@hotmail.com,Abdelilah-9-0045
+test,test,test,test,test
