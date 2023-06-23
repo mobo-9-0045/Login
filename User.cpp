@@ -59,6 +59,7 @@ const std::string &USER::getUserName() const
 
 void	USER::setEmail(const std::string &email)
 {
+	this->CheckEmail_or_password(email, 0);
 	this->email = email;
 }
 const std::string &USER::getEmail() const
@@ -84,9 +85,9 @@ void	USER::CheckEmail_or_password(const std::string pas_or_mail, bool p_or_e) co
 				pass_requirement2 = true;
 			i++;
 		}
-		if (pass_requirement == false || pass_requirement2 == false)
+		if (pass_requirement == false || pass_requirement2 == false || pas_or_mail.length() < 8)
 		{
-			std::cout << "Password must have at least One Uppercase and one digit" << std::endl;
+			std::cout << "Password must have at least One Uppercase and one digit and at least 8 Charachters" << std::endl;
 			exit (1);
 		}
 	}
@@ -105,7 +106,7 @@ void	USER::CheckEmail_or_password(const std::string pas_or_mail, bool p_or_e) co
 			}
 			i++;
 		}
-		if (mail_requirement1 == false || mail_requirement2 == false || number_of_dots > 1)
+		if (mail_requirement1 == false || mail_requirement2 == false || number_of_dots > 1 || pas_or_mail.length() <= 9)
 		{
 			std::cout << "Email invalid" << std::endl;
 			exit (1);

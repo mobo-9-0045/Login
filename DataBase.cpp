@@ -158,7 +158,6 @@ void	DATABASE::REGISTER()
 		std::cout << "Error try again later" << std::endl;
 		exit (0);
 	}
-	// i had to check if the user is not exist then i had to add it to database
 	std::vector<std::string>::iterator it = this->database_container.begin();
 	while (it != this->database_container.end())
 	{
