@@ -29,6 +29,7 @@ class DATABASE
 		bool	LOGIN();
 		void	SET_USER_INFO();
 		void	REGISTER();
+		void	CHECK_DUPLICATED_DATA(std::vector<std::string>::iterator it);
 		~DATABASE();
 };
 

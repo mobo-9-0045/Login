@@ -41,6 +41,7 @@ class USER
 		void	setPassword(const std::string &password);
 		const std::string &getPassword() const;
 
+		void	CheckEmail_or_password(const std::string pas_or_mail, bool p_or_e) const;
 		std::string	GET_USER_INFO() const;
 		~USER();
 };

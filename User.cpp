@@ -66,8 +66,56 @@ const std::string &USER::getEmail() const
 	return (this->email);
 }
 
+void	USER::CheckEmail_or_password(const std::string pas_or_mail, bool p_or_e) const
+{
+	bool pass_requirement = false;
+	bool pass_requirement2 = false;
+	bool mail_requirement1 = false;
+	bool mail_requirement2 = false;
+	int i;
+	if (p_or_e == 1)
+	{
+		i = 0;
+		while (pas_or_mail[i])
+		{
+			if (pas_or_mail[i] >= 'A' && pas_or_mail[i] <= 'Z')
+				pass_requirement = true;
+			if (pas_or_mail[i] >= '0' && pas_or_mail[i] <= '9')
+				pass_requirement2 = true;
+			i++;
+		}
+		if (pass_requirement == false || pass_requirement2 == false)
+		{
+			std::cout << "Password must have at least One Uppercase and one digit" << std::endl;
+			exit (1);
+		}
+	}
+	if (p_or_e == 0)
+	{
+		int	number_of_dots = 0;
+		i = 0;
+		while (pas_or_mail[i])
+		{
+			if (pas_or_mail[i] == '@')
+				mail_requirement1 = true;
+			if (pas_or_mail[i] == '.')
+			{
+				mail_requirement2 = true;
+				number_of_dots++;
+			}
+			i++;
+		}
+		if (mail_requirement1 == false || mail_requirement2 == false || number_of_dots > 1)
+		{
+			std::cout << "Email invalid" << std::endl;
+			exit (1);
+		}
+	}
+}
+
 void	USER::setPassword(const std::string &password)
 {
+	this->CheckEmail_or_password(password, 1);
 	this->password = password;
 }
 const std::string &USER::getPassword() const

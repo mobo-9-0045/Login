@@ -26,6 +26,8 @@ std::vector<std::string> split(const std::string& str, char delimiter = ' ')
     return (parts);
 }
 
+
+
 DATABASE::DATABASE()
 {
 	std::string line;
@@ -41,6 +43,7 @@ DATABASE::DATABASE()
 		getline(f1, line);
 		this->database_container.push_back(line);
 	}
+	f1.close();
 }
 
 std::string	ft_username()
@@ -131,9 +134,23 @@ void	DATABASE::SET_USER_INFO()
 	this->user.setPassword(password);
 }
 
+void	DATABASE::CHECK_DUPLICATED_DATA(std::vector<std::string>::iterator it)
+{
+	std::vector<std::string> user_purpos = split(*it, ',');
+	if (user_purpos[2] == this->user.getUserName())
+	{
+		std::cout << "This Username is Available please type another one" << std::endl;
+		exit (1);
+	}
+	if (user_purpos[3] == this->user.getEmail())
+	{
+		std::cout << "This Email is Available please type another one" << std::endl;
+		exit (1);
+	}
+}
+
 void	DATABASE::REGISTER()
 {
-	bool CHECK_IF_AN_USER_FOUND_IN_DATABASE = false;
 	this->SET_USER_INFO();
 	std::ofstream F("DATABASE.TXT", std::ios::app);
 	if (!F.good())
@@ -145,14 +162,11 @@ void	DATABASE::REGISTER()
 	std::vector<std::string>::iterator it = this->database_container.begin();
 	while (it != this->database_container.end())
 	{
-		if (*it+"\n" == this->user.GET_USER_INFO())
-			CHECK_IF_AN_USER_FOUND_IN_DATABASE = true;
+		this->CHECK_DUPLICATED_DATA(it);
 		++it;
 	}
-	if (CHECK_IF_AN_USER_FOUND_IN_DATABASE == false)
-		F << this->user.GET_USER_INFO();
-	else
-		std::cout << "Plese the information you provide already exist for another user" << std::endl;
+	F << this->user.GET_USER_INFO();
+	F.close();
 	return ;
 }
 
